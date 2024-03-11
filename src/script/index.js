@@ -236,6 +236,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function launch() {
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
+            chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
+                if (res.success) {
+                    localStorage.setItem("user", res.data)
+                    user = res.data
+                } else {
+                    localStorage.removeItem("user")
+                    user = null
+                }
+            })
+            
             setInterval(() => {
                 chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                     if (res.success) {

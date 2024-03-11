@@ -1,6 +1,6 @@
 // for api calls
-// BACKEND_URI = `https://jayneet639.pythonanywhere.com`
-BACKEND_URI = `http://127.0.0.1:8000`
+BACKEND_URI = `https://jayneet639.pythonanywhere.com`
+// BACKEND_URI = `http://127.0.0.1:8000`
 
 async function postData(user, selectedText) {
     const url = `${BACKEND_URI}/users/`;
@@ -31,7 +31,7 @@ async function postData(user, selectedText) {
 }
 
 async function getVersionedData(user) {
-    const url = `${BACKEND_URI}/users/${user}`;
+    const url = `${BACKEND_URI}/users/${user}/`;
 
     const options = {
         method: 'GET',
