@@ -146,9 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 >
                     ${
                         sentences.filter(
-                            (sentence) =>
-                                sentence.content.split(/\s+/).length > 5 &&
-                                sentence.content.split(/\s+/).length <= 18
+                            (sentence) => sentence.content.split(/\s+/).length > 5 && sentence.content.split(/\s+/).length <= 18
                         ).length
                     }
                 </div>
@@ -163,8 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 >
                     ${
                         sentences.filter(
-                            (sentence) =>
-                                sentence.content.split(/\s+/).length > 18
+                            (sentence) => sentence.content.split(/\s+/).length > 18
                         ).length
                     }
                 </div>
@@ -208,7 +205,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const getData = async (selection) => {
         if (!selection?.length == 0) {
             document.getElementById("editor-output").innerHTML = "Loading..."
-
+            
+            let user = window.localStorage.getItem("user")
+            
             const port = chrome.runtime.connect();
             port.postMessage({ selectedText: selection, user })
             port.onMessage.addListener((res) => {
