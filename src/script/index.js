@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    let user = window.localStorage.getItem("user")
-
     const getActiveTab = async () => {
         const tabs = await chrome.tabs.query({
             currentWindow: true,
@@ -235,6 +233,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function launch() {
+        let user = window.localStorage.getItem("user")
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
             chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                 if (res.success) {
@@ -245,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     user = null
                 }
             })
-            
+
             setInterval(() => {
                 chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                     if (res.success) {
@@ -256,7 +255,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         user = null
                     }
                 })
-            }, 1000)
+            }, 500)
         }
 
         if (!user) {
