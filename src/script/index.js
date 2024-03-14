@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     document.getElementById("auth").classList.add('hide')
             
                     document.getElementById("user-info").classList.remove('hide')
-                    document.getElementById("user-info").innerHTML = res.data
+                    document.getElementById("user-info").title = res.data
                 } else {
                     localStorage.removeItem("user")
                     user = null
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById("auth").classList.add('hide')
             
                         document.getElementById("user-info").classList.remove('hide')
-                        document.getElementById("user-info").innerHTML = res.data
+                        document.getElementById("user-info").title = res.data
                     } else {
                         localStorage.removeItem("user")
                         user = null
@@ -271,13 +271,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!user) {
                 document.getElementById("auth").classList.remove('hide')
     
-                const loginBttn = document.querySelector('button[title=login]')
-                const signupBttn = document.querySelector('button[title=signup]')
+                const signInBttn = document.querySelector('button[title=signin]')
     
-                loginBttn.addEventListener('click', function () {
-                    window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
-                })
-                signupBttn.addEventListener('click', function () {
+                signInBttn.addEventListener('click', function () {
                     window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
                 })
     
@@ -285,7 +281,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById("auth").classList.add('hide')
                 
                 document.getElementById("user-info").classList.remove('hide')
-                document.getElementById("user-info").innerHTML = user
+                document.getElementById("user-info").title   = user
                 
                 getSelectedText()
             }
