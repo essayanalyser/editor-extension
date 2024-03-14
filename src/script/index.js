@@ -216,7 +216,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             // if no text is selected
             // TODO: replace with some default styling
-            document.getElementById("editor-output").innerHTML = "You have to first select some text"
+            document.getElementById("editor-output").innerHTML = `
+                <h3>You have to first select some text</h3>
+                <p>If you are just logging in, the page will require a reload</p>
+            `
         }
     }
 
@@ -234,10 +237,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     function launch() {
         let user = window.localStorage.getItem("user")
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
+            document.getElementById('editor-output').innerHTML = "Welcome to Essay Analyzer, login and click the extension icon agian."
             chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                 if (res.success) {
                     localStorage.setItem("user", res.data)
                     user = res.data
+                    document.getElementById("auth").classList.add('hide')
+            
+                    document.getElementById("user-info").classList.remove('hide')
+                    document.getElementById("user-info").innerHTML = res.data
                 } else {
                     localStorage.removeItem("user")
                     user = null
@@ -249,34 +257,38 @@ document.addEventListener("DOMContentLoaded", async () => {
                     if (res.success) {
                         localStorage.setItem("user", res.data)
                         user = res.data
+                        document.getElementById("auth").classList.add('hide')
+            
+                        document.getElementById("user-info").classList.remove('hide')
+                        document.getElementById("user-info").innerHTML = res.data
                     } else {
                         localStorage.removeItem("user")
                         user = null
                     }
                 })
             }, 500)
-        }
-
-        if (!user) {
-            document.getElementById("auth").classList.remove('hide')
-
-            const loginBttn = document.querySelector('button[title=login]')
-            const signupBttn = document.querySelector('button[title=signup]')
-
-            loginBttn.addEventListener('click', function () {
-                window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
-            })
-            signupBttn.addEventListener('click', function () {
-                window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
-            })
-
         } else {
-            document.getElementById("auth").classList.add('hide')
-            
-            document.getElementById("user-info").classList.remove('hide')
-            document.getElementById("user-info").innerHTML = user
-            
-            getSelectedText()
+            if (!user) {
+                document.getElementById("auth").classList.remove('hide')
+    
+                const loginBttn = document.querySelector('button[title=login]')
+                const signupBttn = document.querySelector('button[title=signup]')
+    
+                loginBttn.addEventListener('click', function () {
+                    window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
+                })
+                signupBttn.addEventListener('click', function () {
+                    window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
+                })
+    
+            } else {
+                document.getElementById("auth").classList.add('hide')
+                
+                document.getElementById("user-info").classList.remove('hide')
+                document.getElementById("user-info").innerHTML = user
+                
+                getSelectedText()
+            }
         }
     }
 

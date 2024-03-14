@@ -44,7 +44,7 @@ async function getVersionedData(user) {
         const response = await fetch(url, options);
         const result = await response.json();
         
-        const versions = result[0].versions
+        const versions = result.filter(item => item.doc_name === "extension-doc")[0].versions
 
         data = { success: true, data: versions[versions.length-1] }
 
