@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return `<span
                 data-key=${sentence.sentence_id}
                 class="text-xs"
-                style="background-color: ${bgcolor}; color: ${color}; font-weight: 600; letter-spacing: 0.025em"
+                style=" background-color: ${bgcolor}; color: ${color}; font-weight: 600; letter-spacing: 0.025em"
             >
                 ${sentence.content}
             </span>`;
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Selected Text</h3>
+                <h3>Selected Text:</h3>
                 ${highlightedText}
             `
         )
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Breakdown</h3>
+                <h3>Breakdown:</h3>
                 ${brokenDownText}
             `
         )
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Breakdown count:&nbsp;</h3>
+                <div>Breakdown count:&nbsp;</div>
                 ${brokenDownCount}
             `
         )
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function getStatistics(sentences) {
         return (
             `
-            <h3>Statistics</h3>
+            <h3>Statistics:</h3>
             <div class="flexed-wrap flexed-away">
                 <div style="color: #1A5D1A" class="flexed-center">
                     Short Sentences:
@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             // if no text is selected
             // TODO: replace with some default styling
             document.getElementById("editor-output").innerHTML = `
-                <h3>You have to first select some text</h3>
-                <p>If you are just logging in, the page will require a reload</p>
+                <h3>You have to first select some text.</h3>
+                <p>If you have just logged in, the page you want to work upon will have to reload.</p>
             `
         }
     }
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function launch() {
         let user = window.localStorage.getItem("user")
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
-            document.getElementById('editor-output').innerHTML = "Welcome to Essay Analyzer, login and click the extension icon agian."
+            document.getElementById('editor-output').innerHTML = "Welcome to Essay Analyzer, log in and click the extension icon again."
             chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                 if (res.success) {
                     localStorage.setItem("user", res.data)

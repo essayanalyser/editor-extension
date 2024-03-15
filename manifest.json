@@ -6,7 +6,8 @@
     "author": "DJSCE",
     "action": {
         "default_popup": "/src/html/index.html",
-        "default_title": "Editor Extension"
+        "default_title": "Editor Extension",
+        "default_icon": "logo.png"
     },
     "background": {
         "service_worker": "/src/script/background.js"
