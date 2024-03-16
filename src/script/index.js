@@ -170,7 +170,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function handleResponseOnExtension(res) {
-        // visualize/show/print analysed data
+        // to visualize/show/print analysed res data
+
         const { success, data } = res
         if (!success) {
             document.getElementById("editor-output").classList.add('error')
@@ -215,7 +216,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             })
         } else {
             // if no text is selected
-            // TODO: replace with some default styling
             document.getElementById("editor-output").innerHTML = `
                 <h3>You have to first select some text.</h3>
                 <p>If you have just logged in, the page you want to work upon will have to reload.</p>
@@ -225,15 +225,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const getSelectedText = async () => {
         // Chrome does not allow injection of service workers for chrome internal pages
+        // chrome internal pages: https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/
         // this condition returns early on chrome default pages avoiding errors
         if (/^chrome:\/\//.test(activeTab.url)) {
-            document.getElementById("editor-output").innerHTML = `This extension does not work for <a href=${'https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/'} target='_blank'>chrome internal pages</a>.`
+            document.getElementById("editor-output").innerHTML = 
+            `This extension does not work for <a href=${'https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/'} target='_blank'>chrome internal pages</a>.`
             return;
         }
-
+        // calls the contentScript on the webpage to get selected text
         chrome.tabs.sendMessage(activeTab.id, { type: "LOAD" }, getData)
     }
 
+    // main method
     function launch() {
         let user = window.localStorage.getItem("user")
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
@@ -289,5 +292,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     launch()
-
 })

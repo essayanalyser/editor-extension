@@ -1,6 +1,5 @@
-// for api calls
+// for api calls to backend
 BACKEND_URI = `https://jayneet639.pythonanywhere.com`
-// BACKEND_URI = `http://127.0.0.1:8000`
 
 async function postData(user, selectedText) {
     const url = `${BACKEND_URI}/users/`;
@@ -61,7 +60,6 @@ chrome.runtime.onConnect.addListener((port) => {
     port.onMessage.addListener(async (msg) => {
         const { user, selectedText } = msg
 
-        // TODO: run api to fetch info here
         const postedData = await postData(user, selectedText)
         if(!postedData.success) {
             port.postMessage(postedData)
