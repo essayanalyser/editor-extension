@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function handleResponseOnExtension(res) {
         // to visualize/show/print analysed res data
+        // by injecting html
 
         const { success, data } = res
         if (!success) {
@@ -210,7 +211,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             let user = window.localStorage.getItem("user")
             
             const port = chrome.runtime.connect();
-            port.postMessage({ selectedText: selection, user })
+            port.postMessage({ selectedText: selection, user, activeTab: activeTab })
             port.onMessage.addListener((res) => {
                 handleResponseOnExtension(res)
             })
